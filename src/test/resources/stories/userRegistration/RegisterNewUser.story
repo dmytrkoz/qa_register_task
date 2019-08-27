@@ -10,8 +10,9 @@ Then the new user should be registered $registered
 
 Examples:
 |generator|registered|
-|random         |true|
-|random         |true|
-|random         |true|
-|random         |true|
-|random         |true|
+|random |true|
+|random |true|
+|random |true|
+|random |true|
+|random |true|
+!-- |static         |true|
