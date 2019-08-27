@@ -60,7 +60,7 @@ public class RandomValidGenerator extends AbstractDataGenerator {
     @Override
     public String generatePassword() {
         String password = faker.internet()
-                .password(8,10,true,true, true);
+                .password(10,12,true,true, true);
         setPassword(password);
         return password;
     }
