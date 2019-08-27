@@ -1,0 +1,4 @@
+Automation test task for lottoland
+In order to become a happy member of a Ciklum family
+As a candidate
+I do all my best for this automation task
