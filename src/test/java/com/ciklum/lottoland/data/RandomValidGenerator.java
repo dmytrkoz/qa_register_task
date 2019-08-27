@@ -1,10 +1,6 @@
 package com.ciklum.lottoland.data;
 
-import org.openqa.selenium.WebElement;
-
-import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RandomValidGenerator extends AbstractDataGenerator {
@@ -43,7 +39,6 @@ public class RandomValidGenerator extends AbstractDataGenerator {
     public int generateSkills() {
         return getRandomInt( 78);
     }
-
 
     @Override
     public int generateCountries() {

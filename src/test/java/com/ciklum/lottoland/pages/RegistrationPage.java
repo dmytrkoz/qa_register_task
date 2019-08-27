@@ -125,9 +125,8 @@ public class RegistrationPage extends BasicPage {
      *
      * @return List<WebElementFacade> with WebElementFacade getValue()
      */
-    public List<WebElement> getAllLanguagesElements() {
-        languagesContainer.click();
-        return getDriver().findElements((By.cssSelector("a.ui-corner-all")));
+    private List<WebElement> getAllLanguagesElements() {
+        return getHiddenDropdownElements(languagesContainer,By.cssSelector("a.ui-corner-all"));
     }
 
     public List<String> getAllLanguages() {
@@ -135,15 +134,14 @@ public class RegistrationPage extends BasicPage {
     }
 
     /**
-     * Based on array filled with 1 and 0 select the languages,
+     * Based on available options select the languages,
      *
-     * @param languagesInput int[], int[i] = 1 - add language  to selected,
-     *                       int[i] = 0 - don't add language  to selected
+     * @param languagesInput - which languages to select
      */
     public void selectLanguages(List<?> languagesInput) {
         getAllLanguagesElements().stream().filter(language ->
                 languagesInput.contains(language.getText())).forEach(language ->
-                    getJavascriptExecutorFacade().executeScript("arguments[0].click();", language));
+                    jsClick(language));
     }
 
     public void selectSkills(int skillIndex) {
@@ -156,27 +154,20 @@ public class RegistrationPage extends BasicPage {
 
 
     public void selectCountry(int countryIndex) {
-        country.click(); // first click on the the field to make the options visible
-        List<WebElement> countries = getDriver().findElements((By.cssSelector("li.select2-results__option")));
-
-        //scroll to the option element if it's needed
-        getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView()", countries.get(countryIndex));
-        countries.get(countryIndex).click();
+        List<WebElement> countries = getHiddenDropdownElements(country,By.cssSelector("li.select2-results__option"));
+        jsScrollAndClick(countries.get(countryIndex));
     }
 
     public List<String> getAllYears(){
-        return year.thenFindAll(By.tagName("option")).stream()
-                .map(WebElementFacade::getValue).collect(Collectors.toList());
+        return getAllDropdownValues(year);
     }
 
     public List<String> getAllMonths(){
-        return month.thenFindAll(By.tagName("option")).stream()
-                .map(WebElementFacade::getValue).collect(Collectors.toList());
+        return getAllDropdownValues(month);
     }
 
     public List<String> getAllDays(){
-        return day.thenFindAll(By.tagName("option")).stream()
-                .map(WebElementFacade::getValue).collect(Collectors.toList());
+        return getAllDropdownValues(day);
     }
 
     public void selectYear(String yearValue){
@@ -201,14 +192,13 @@ public class RegistrationPage extends BasicPage {
     }
 
     public void uploadPhoto(int filename) {
-        getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView()", photo);
+        getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView();", photo);
         File photoFile = new File("src/test/resources/photos/" + filename + ".jpg");
         photo.sendKeys(photoFile.getAbsolutePath());
     }
 
     public void pressSubmit() {
-        getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView()", submitButton);
-        submitButton.click();
+        jsClick(submitButton);
     }
 
     /**
@@ -220,8 +210,9 @@ public class RegistrationPage extends BasicPage {
     public Optional<String> getRegistrationError() {
 
         //Scroll to top of the screen if we are still on registration page
-        if (this.isOnPage()) {
-            getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView()", waitFor(getDriver().findElement(By.id("header"))));
+        if (isOnPage()) {
+            getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView();",
+                    waitFor(getDriver().findElement(By.id("header"))));
 
             //if there are some visible errors, collect errors text
             if (registrationError.isCurrentlyVisible()) {
