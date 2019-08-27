@@ -180,7 +180,7 @@ public class RegistrationPage extends BasicPage {
     public Optional<String> getRegistrationError(){
 
         //Scroll to top of the screen
-        getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView()", h1Header);
+        getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView()", header.waitUntilPresent());
 
         //if there are some visible errors, collect errors text
         if(registrationError.isCurrentlyVisible()){

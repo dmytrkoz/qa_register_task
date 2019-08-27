@@ -13,8 +13,8 @@ import java.util.Optional;
  */
 public class BasicPage extends PageObject {
 
-    @FindBy(tagName = "h1")
-    protected WebElementFacade h1Header;
+    @FindBy(id = "header")
+    protected WebElementFacade header;
 
     public boolean pageIsReady() {
         waitFor(".facebook").shouldBeDisplayed();
