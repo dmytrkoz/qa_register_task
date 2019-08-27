@@ -2,7 +2,7 @@ package com.ciklum.lottoland.data.factories;
 
 import com.ciklum.lottoland.data.DataGenerator;
 import com.ciklum.lottoland.data.RandomValidGenerator;
-import com.ciklum.lottoland.data.StaticGenerator;
+//import com.ciklum.lottoland.data.StaticGenerator;
 
 
 /**
@@ -18,7 +18,7 @@ public abstract class DataGeneratorFactory {
      */
     public static DataGenerator getInstance(String generator){
         switch (generator){
-            case "static": return new StaticGenerator();
+//            case "static": return new StaticGenerator();
             case "random": return new RandomValidGenerator();
             default:
                 throw new IllegalArgumentException("Provided generator with name "+ generator+ " doesn't exist");

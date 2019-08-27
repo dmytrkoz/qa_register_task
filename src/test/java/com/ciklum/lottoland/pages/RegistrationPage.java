@@ -104,12 +104,12 @@ public class RegistrationPage extends BasicPage {
      * @param hobbiesInputs int[], int[i] = 1 - select checkbox,
      *                             int[i] = 0 - don't select checkbox
      */
-    public void selectHobbies(int[] hobbiesInputs){
-        for (int i=0;i<hobbies.size();i++){
-            if (hobbiesInputs[i] == 1) {
-                hobbies.get(i).click();
-            }
-        }
+    public void selectHobbies(List<?> hobbiesInputs){
+        hobbies.stream().filter(hobby ->
+                hobbiesInputs.contains(hobby.getValue())).forEach(WebElementFacade::click);
+    }
+    public List<String> getAllHobbies(){
+        return hobbies.stream().map(WebElementFacade::getValue).collect(Collectors.toList());
     }
 
     /**

@@ -1,5 +1,9 @@
 package com.ciklum.lottoland.data;
 
+import org.openqa.selenium.WebElement;
+
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,17 +30,13 @@ public class RandomValidGenerator extends AbstractDataGenerator {
     }
 
     @Override
-    public int[] generateHobbies() {
-
-        int[] hobbies = new int[3];
-
-        return fillArrayWithOneOrZero(hobbies);
+    public List<?> generateHobbies(List<?> values) {
+       return selectRandomElementsFromList(values);
     }
 
     @Override
-    public int[] generateLanguages() {
-        int [] array = new int[41];
-        return fillArrayWithOneOrZero(array);
+    public List<?> generateLanguages(List<?> values) {
+        return selectRandomElementsFromList(values);
     }
 
     @Override

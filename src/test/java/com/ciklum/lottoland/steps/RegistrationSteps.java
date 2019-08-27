@@ -33,8 +33,8 @@ public class RegistrationSteps {
         endUser.entersEmail(dg.generateEmail());
         endUser.entersPhone(dg.generatePhone());
         endUser.selectsGender(dg.generateGender());
-        endUser.selectsHobbies(dg.generateHobbies());
-        endUser.selectsLenguages(dg.generateLanguages());
+        endUser.selectsHobbies(dg.generateHobbies(endUser.getAllHobbies()));
+//        endUser.selectsLenguages(dg.generateLanguages());
         endUser.selectsSkills(dg.generateSkills());
         endUser.selectsCountries(dg.generateCountries());
         endUser.selectsCountry(dg.generateCountry());

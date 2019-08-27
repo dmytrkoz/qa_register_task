@@ -1,5 +1,7 @@
 package com.ciklum.lottoland.data;
 
+import java.util.List;
+
 /**
  * Describes what methods are required for the test data generator
  */
@@ -15,9 +17,9 @@ public interface DataGenerator {
 
      int generateGender();
 
-     int[] generateHobbies();
+     List<?> generateHobbies(List<?> values);
 
-     int[] generateLanguages();
+     List<?> generateLanguages(List<?> values);
 
      int generateSkills();
 
@@ -25,7 +27,7 @@ public interface DataGenerator {
 
      int generateCountry();
 
-     int[] generateDateOfBirth();
+     int [] generateDateOfBirth();
 
      String generatePassword();
 

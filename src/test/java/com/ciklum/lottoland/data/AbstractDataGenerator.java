@@ -133,4 +133,9 @@ public abstract class AbstractDataGenerator implements DataGenerator {
         return faker.number().numberBetween(min,max);
     }
 
+    protected List<?> selectRandomElementsFromList(List<?> list){
+        Collections.shuffle(list);
+        return list.subList(0, getRandomInt(list.size()+1));
+    }
+
 }

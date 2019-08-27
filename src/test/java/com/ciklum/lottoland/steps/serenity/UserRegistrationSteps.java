@@ -3,6 +3,8 @@ package com.ciklum.lottoland.steps.serenity;
 import com.ciklum.lottoland.pages.RegistrationPage;
 import net.thucydides.core.annotations.Step;
 
+import java.util.List;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -41,8 +43,12 @@ public class UserRegistrationSteps {
     }
 
     @Step
-    public void selectsHobbies(int[] hobbies) {
+    public void selectsHobbies(List<?> hobbies) {
         registrationPage.selectHobbies(hobbies);
+    }
+
+    public List<String> getAllHobbies(){
+        return registrationPage.getAllHobbies();
     }
 
     @Step
