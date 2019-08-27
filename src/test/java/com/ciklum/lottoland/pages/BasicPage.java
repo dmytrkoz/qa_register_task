@@ -18,11 +18,21 @@ public class BasicPage extends PageObject {
 
     public boolean pageIsReady() {
         waitFor(".facebook").shouldBeDisplayed();
-        return true;
+        return isOnPage();
     }
 
-    public Optional<String> getDefualtUrlValue(){
+    public Optional<String> getDefualtUrlValue() {
         return Optional.of(this.getClass().getAnnotation(DefaultUrl.class).value());
+    }
+
+    public Optional<String> getPageTitle(){
+        return Optional.of(getDriver().getTitle());
+    }
+
+    public boolean isOnPage() {
+        Optional<String> pageDefaultUrl = getDefualtUrlValue();
+        return getDriver().getCurrentUrl().equals(pageDefaultUrl.orElse(
+                "Default url for class " + this.getClass().getName()+ "is not provided"));
     }
 
 

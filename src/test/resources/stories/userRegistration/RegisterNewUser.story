@@ -15,4 +15,3 @@ Examples:
 |random         |true|
 |random         |true|
 |random         |true|
-|static         |true|

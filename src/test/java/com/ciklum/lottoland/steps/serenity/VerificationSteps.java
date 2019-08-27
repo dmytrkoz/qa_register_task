@@ -47,7 +47,7 @@ public class VerificationSteps {
      * @return Text of the error if it's present, if not returns Optional.empty()
      */
     private Optional<String> getVisibleErrors() {
-        return registrationPage.getRegistrationError();
+        return registrationPage.isOnPage() ? registrationPage.getRegistrationError() : Optional.empty();
     }
 
     /**

@@ -1,6 +1,9 @@
 package com.ciklum.lottoland.data;
 
+import com.ciklum.lottoland.steps.serenity.VerificationSteps;
 import com.github.javafaker.Faker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,6 +16,8 @@ import java.util.stream.Collectors;
  * Class with common methods needed for data generation
  */
 public abstract class AbstractDataGenerator implements DataGenerator {
+
+    protected final Logger logger = LoggerFactory.getLogger(VerificationSteps.class);
 
     //immutable list of available users
     protected static final List<String> usersList = Collections.unmodifiableList(Arrays.asList("Jan van Dam", "Chack Norris", "Klark n Kent",

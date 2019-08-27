@@ -12,12 +12,12 @@ import net.thucydides.core.annotations.DefaultUrl;
 @DefaultUrl("http://demo.automationtesting.in/WebTable.html")
 public class UsersTablePage extends BasicPage {
 
-    @FindBy(css="h4:nth-child(1)")
-    private WebElementFacade header;
+    @FindBy(css="div.col-xs-12.myGrid.ui-grid")
+    private WebElementFacade userTable;
 
     @Override
     public boolean pageIsReady(){
-        waitFor(header).isCurrentlyVisible();
+        waitFor(userTable).isCurrentlyVisible();
         return super.pageIsReady();
     }
 }
