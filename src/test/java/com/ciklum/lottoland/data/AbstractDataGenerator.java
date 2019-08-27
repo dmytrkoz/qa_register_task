@@ -134,8 +134,21 @@ public abstract class AbstractDataGenerator implements DataGenerator {
     }
 
     protected List<?> selectRandomElementsFromList(List<?> list){
-        Collections.shuffle(list);
-        return list.subList(0, getRandomInt(list.size()+1));
+        return selectRandomElementsFromList(list,0);
+    }
+
+    protected List<?> selectRandomElementsFromList(List<?> list, int startFrom){
+        List<?> randomList = new ArrayList<>(list.subList(1, list.size()));
+        Collections.shuffle(randomList); // cannot do directly Collections.shuffle(List)
+        return randomList.subList(0, getRandomInt(randomList.size()+1));
+    }
+
+    protected <E> E selectRandomElementFromList(List<E> values, int startFrom){
+        return values.get(getRandomInt(startFrom,values.size()));
+    }
+
+    protected <E> E selectRandomElementFromList(List<E> values){
+        return selectRandomElementFromList(values,0);
     }
 
 }

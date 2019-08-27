@@ -56,8 +56,18 @@ public class RandomValidGenerator extends AbstractDataGenerator {
     }
 
     @Override
-    public int[] generateDateOfBirth() {
-        return new int[] {getRandomInt( 1916,2016),getRandomInt(1, 13),getRandomInt(1, 32)};
+    public String generateYear(List<?> values) {
+        return selectRandomElementFromList(values,1).toString();
+    }
+
+    @Override
+    public String generateMonth(List<?> values) {
+        return selectRandomElementFromList(values,1).toString();
+    }
+
+    @Override
+    public String generateDay(List<?> values) {
+        return selectRandomElementFromList(values,1).toString();
     }
 
     /**

@@ -27,7 +27,11 @@ public interface DataGenerator {
 
      int generateCountry();
 
-     int [] generateDateOfBirth();
+     String generateYear(List<?>values);
+
+     String generateMonth(List<?>values);
+
+     String generateDay(List<?>values);
 
      String generatePassword();
 

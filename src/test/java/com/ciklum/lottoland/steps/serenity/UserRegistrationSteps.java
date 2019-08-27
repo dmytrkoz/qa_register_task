@@ -47,13 +47,17 @@ public class UserRegistrationSteps {
         registrationPage.selectHobbies(hobbies);
     }
 
-    public List<String> getAllHobbies(){
+    public List<?> getAllHobbies(){
         return registrationPage.getAllHobbies();
     }
 
     @Step
-    public void selectsLenguages(int[] languages) {
+    public void selectsLenguages(List<?> languages) {
         registrationPage.selectLanguages(languages);
+    }
+
+    public List<?> getAllLanguages(){
+        return registrationPage.getAllLanguages();
     }
 
     @Step
@@ -71,9 +75,32 @@ public class UserRegistrationSteps {
         registrationPage.selectCountry(countriesIndex);
     }
 
+
     @Step
-    public void selectsDateOfBirth(int[] dateOfBirth) {
-        registrationPage.selectDateOfBirth(dateOfBirth);
+    public void selectsYear(String year) {
+        registrationPage.selectYear(year);
+    }
+
+    public List<?> getAllYears(){
+        return registrationPage.getAllYears();
+    }
+
+    public List<?> getAllMonths(){
+        return registrationPage.getAllMonths();
+    }
+
+    public List<?> getAllDays(){
+        return registrationPage.getAllDays();
+    }
+
+    @Step
+    public void selectsMonth(String month) {
+        registrationPage.selectMonth(month);
+    }
+
+    @Step
+    public void selectsDay(String day) {
+        registrationPage.selectDay(day);
     }
 
     @Step

@@ -12,10 +12,10 @@ import org.jbehave.core.annotations.When;
 public class RegistrationSteps {
 
     @Steps
-    UserRegistrationSteps endUser;
+    private UserRegistrationSteps endUser;
 
     @Steps
-    VerificationSteps verificationSteps;
+    private VerificationSteps verificationSteps;
 
     @Given("the user is on the Registration page")
     public void givenTheUserIsOnTheRegistrationPage() {
@@ -34,11 +34,13 @@ public class RegistrationSteps {
         endUser.entersPhone(dg.generatePhone());
         endUser.selectsGender(dg.generateGender());
         endUser.selectsHobbies(dg.generateHobbies(endUser.getAllHobbies()));
-//        endUser.selectsLenguages(dg.generateLanguages());
+        endUser.selectsLenguages(dg.generateLanguages(endUser.getAllLanguages()));
         endUser.selectsSkills(dg.generateSkills());
         endUser.selectsCountries(dg.generateCountries());
         endUser.selectsCountry(dg.generateCountry());
-        endUser.selectsDateOfBirth(dg.generateDateOfBirth());
+        endUser.selectsYear(dg.generateYear(endUser.getAllYears()));
+        endUser.selectsMonth(dg.generateMonth(endUser.getAllMonths()));
+        endUser.selectsDay(dg.generateDay(endUser.getAllDays()));
         endUser.entersPassword(dg.generatePassword());
         endUser.entersPasswordConfirmation(dg.generatePasswordConfirmation());
         endUser.uploadsPhoto(dg.generatePhoto());
