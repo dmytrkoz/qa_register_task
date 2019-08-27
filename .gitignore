@@ -1,0 +1,13 @@
+build
+.gradle
+.idea
+lib
+target
+*.iml
+*.log
+/serenity-jbehave.ipr
+/serenity-jbehave.iws
+/bin
+.project
+.settings
+.classpath
