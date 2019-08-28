@@ -5,6 +5,7 @@ import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,8 +50,18 @@ public abstract class AbstractDataGenerator implements DataGenerator {
     }
 
     @Override
-    public int generatePhoto(){
-            return getRandomInt(5);
+    public String generatePhoto(){
+        List<String> results = new ArrayList<>();
+        File[] files = new File("src/test/resources/photos/").listFiles();
+//If this pathname does not denote a directory, then listFiles() returns null.
+
+        for (File file : files) {
+            if (file.isFile()) {
+                results.add(file.getAbsolutePath());
+            }
+        }
+
+        return (oneOrZero()==0) ? results.get(getRandomInt(results.size())) : "without file";
     }
 
     /**

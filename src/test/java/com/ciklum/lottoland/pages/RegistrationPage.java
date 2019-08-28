@@ -34,7 +34,7 @@ public class RegistrationPage extends BasicPage {
     private WebElementFacade phone;
 
     @FindBy(css = "input[type=radio]")
-    private List<WebElementFacade> gender;
+    private List<WebElementFacade> genders;
 
     @FindBy(css = "input[type=checkbox]")
     private List<WebElementFacade> hobbies;
@@ -95,8 +95,13 @@ public class RegistrationPage extends BasicPage {
         phone.type(value);
     }
 
-    public void selectGender(int value) {
-        gender.get(value).click();
+
+    public List<String> getAllGenderOptions(){
+        return genders.stream().map(WebElementFacade::getValue).collect(Collectors.toList());
+
+    }
+    public void selectGender(String genderValue) {
+        genders.stream().filter(gender -> gender.getValue().equals(genderValue)).forEach(WebElementFacade::click);
     }
 
 
@@ -144,18 +149,30 @@ public class RegistrationPage extends BasicPage {
                     jsClick(language));
     }
 
-    public void selectSkills(int skillIndex) {
-        skills.selectByIndex(skillIndex);
+    public List<String> getAllSkills(){
+        return getAllDropdownValues(skills);
     }
 
-    public void selectCountries(int countryIndex) {
-        countries.selectByIndex(countryIndex);
+    public void selectSkills(String skillValue) {
+        skills.selectByValue(skillValue);
     }
 
+    public List<String> getAllCountries(){
+        return getAllDropdownValues(country);
+    }
 
-    public void selectCountry(int countryIndex) {
-        List<WebElement> countries = getHiddenDropdownElements(country,By.cssSelector("li.select2-results__option"));
-        jsScrollAndClick(countries.get(countryIndex));
+    public void selectCountries(String  countryValue) {
+        countries.selectByValue(countryValue);
+    }
+
+    public List<String> getAllCountryValues(){
+        return getHiddenDropdownElements(country,By.cssSelector("li.select2-results__option"))
+                .stream().map(WebElement::getText).collect(Collectors.toList());
+    }
+
+    public void selectCountry(String countryValue) {
+        List<WebElement> countries = getDriver().findElements(By.cssSelector("li.select2" + "-results__option"));
+        jsScrollAndClick(countries.stream().filter(country -> country.getText().equals(countryValue)).findFirst().get());
     }
 
     public List<String> getAllYears(){
@@ -191,10 +208,12 @@ public class RegistrationPage extends BasicPage {
         confirmPassword.type(newPasswordConfirmation);
     }
 
-    public void uploadPhoto(int filename) {
-        getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView();", photo);
-        File photoFile = new File("src/test/resources/photos/" + filename + ".jpg");
-        photo.sendKeys(photoFile.getAbsolutePath());
+    public void uploadPhoto(String filename) {
+        if (!filename.equals("without file")) {
+            getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView();", photo);
+            File photoFile = new File(filename);
+            photo.sendKeys(photoFile.getAbsolutePath());
+        }
     }
 
     public void pressSubmit() {

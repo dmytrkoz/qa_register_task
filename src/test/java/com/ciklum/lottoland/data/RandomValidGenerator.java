@@ -21,8 +21,8 @@ public class RandomValidGenerator extends AbstractDataGenerator {
     }
 
     @Override
-    public int generateGender() {
-        return oneOrZero();
+    public String generateGender(List<?> values) {
+        return values.get(oneOrZero()).toString();
     }
 
     @Override
@@ -36,18 +36,18 @@ public class RandomValidGenerator extends AbstractDataGenerator {
     }
 
     @Override
-    public int generateSkills() {
-        return getRandomInt( 78);
+    public String generateSkills(List<?> values) {
+        return selectRandomElementFromList(values).toString();
     }
 
     @Override
-    public int generateCountries() {
-        return getRandomInt( 251);
+    public String generateCountries(List<?> values) {
+        return selectRandomElementFromList(values).toString();
     }
 
     @Override
-    public int generateCountry() {
-        return getRandomInt( 11);
+    public String generateCountry(List<?> values) {
+        return selectRandomElementFromList(values).toString();
     }
 
     @Override

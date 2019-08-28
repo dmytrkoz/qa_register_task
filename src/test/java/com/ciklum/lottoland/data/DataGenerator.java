@@ -15,17 +15,17 @@ public interface DataGenerator {
 
      String generatePhone();
 
-     int generateGender();
+     String generateGender(List<?> values);
 
      List<?> generateHobbies(List<?> values);
 
      List<?> generateLanguages(List<?> values);
 
-     int generateSkills();
+     String generateSkills(List<?>values);
 
-     int generateCountries();
+     String generateCountries(List<?>values);
 
-     int generateCountry();
+     String generateCountry(List<?>values);
 
      String generateYear(List<?>values);
 
@@ -37,5 +37,5 @@ public interface DataGenerator {
 
      String generatePasswordConfirmation();
 
-     int generatePhoto();
+     String generatePhoto();
 }

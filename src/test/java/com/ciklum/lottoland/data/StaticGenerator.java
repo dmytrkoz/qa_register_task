@@ -27,8 +27,8 @@ public class StaticGenerator extends AbstractDataGenerator {
     }
 
     @Override
-    public int generateGender() {
-        return 1;
+    public String generateGender(List<?> values) {
+        return "Male";
     }
 
     @Override
@@ -57,19 +57,19 @@ public class StaticGenerator extends AbstractDataGenerator {
     }
 
     @Override
-    public int generateSkills() {
-        return 6;
+    public String generateSkills(List<?> values) {
+        return "Android";
     }
 
 
     @Override
-    public int generateCountries() {
-        return 9;
+    public String generateCountries(List<?> values) {
+        return "Albania";
     }
 
     @Override
-    public int generateCountry() {
-        return 8;
+    public String generateCountry(List<?> values) {
+        return "Australia";
     }
 
     @Override
@@ -80,5 +80,10 @@ public class StaticGenerator extends AbstractDataGenerator {
     @Override
     public String generatePasswordConfirmation() {
         return generatePassword();
+    }
+
+    @Override
+    public String generatePhoto(){
+        return "src/test/resources/photos/1.jpg";
     }
 }

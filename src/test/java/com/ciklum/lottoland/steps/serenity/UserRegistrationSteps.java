@@ -37,8 +37,13 @@ public class UserRegistrationSteps {
         registrationPage.enterPhone(phone);
     }
 
+
+    public List<?> getAllGenderOptions(){
+        return registrationPage.getAllGenderOptions();
+    }
+
     @Step
-    public void selectsGender(int gender) {
+    public void selectsGender(String gender) {
         registrationPage.selectGender(gender);
     }
 
@@ -61,18 +66,30 @@ public class UserRegistrationSteps {
     }
 
     @Step
-    public void selectsSkills(int skillIndex) {
-        registrationPage.selectSkills(skillIndex);
+    public void selectsSkills(String skillValue) {
+        registrationPage.selectSkills(skillValue);
+    }
+
+    public List<?> getAllSkills(){
+        return registrationPage.getAllSkills();
     }
 
     @Step
-    public void selectsCountries(int countriesIndex) {
-        registrationPage.selectCountries(countriesIndex);
+    public void selectsCountries(String countriesValue) {
+        registrationPage.selectCountries(countriesValue);
+    }
+
+    public List<?> getAllCountries(){
+        return registrationPage.getAllCountries();
+    }
+
+    public List<?> getAllCountryValues(){
+        return registrationPage.getAllCountryValues();
     }
 
     @Step
-    public void selectsCountry(int countriesIndex) {
-        registrationPage.selectCountry(countriesIndex);
+    public void selectsCountry(String countryValue) {
+        registrationPage.selectCountry(countryValue);
     }
 
 
@@ -114,7 +131,7 @@ public class UserRegistrationSteps {
     }
 
     @Step
-    public void uploadsPhoto(int filename) {
+    public void uploadsPhoto(String filename) {
         registrationPage.uploadPhoto(filename);
     }
 

@@ -32,12 +32,12 @@ public class RegistrationSteps {
         endUser.entersAddress(dg.generateAddress());
         endUser.entersEmail(dg.generateEmail());
         endUser.entersPhone(dg.generatePhone());
-        endUser.selectsGender(dg.generateGender());
+        endUser.selectsGender(dg.generateGender(endUser.getAllGenderOptions()));
         endUser.selectsHobbies(dg.generateHobbies(endUser.getAllHobbies()));
         endUser.selectsLenguages(dg.generateLanguages(endUser.getAllLanguages()));
-        endUser.selectsSkills(dg.generateSkills());
-        endUser.selectsCountries(dg.generateCountries());
-        endUser.selectsCountry(dg.generateCountry());
+        endUser.selectsSkills(dg.generateSkills(endUser.getAllSkills()));
+        endUser.selectsCountries(dg.generateCountries(endUser.getAllCountries()));
+        endUser.selectsCountry(dg.generateCountry(endUser.getAllCountryValues()));
         endUser.selectsYear(dg.generateYear(endUser.getAllYears()));
         endUser.selectsMonth(dg.generateMonth(endUser.getAllMonths()));
         endUser.selectsDay(dg.generateDay(endUser.getAllDays()));
