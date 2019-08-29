@@ -56,7 +56,7 @@ public abstract class AbstractDataGenerator implements DataGenerator {
 
     /**
      *Scans the folder with photos if there are some - returns random one, if the folder doesn't
-     * exist
+     * exist returns noFile property value from serenity.conf file
      * Folder path is set up in serenity.conf file
      *
      * @return
