@@ -12,11 +12,12 @@ After execution test report should be available at {project base dir}/target/sit
 
 
 <b>Issues found: </b>  
-1. Each month 31 day is available, and for example February 31 can be submitted
+1. Each month has 31 day available for selction, and for example February 31 can be submitted
 2. Expected format of phone number is not provided (should be 10 digits)
-3. Country 2 times(maybe just to check different dropdown types)
+3. Country selection is present 2 times(maybe just to check different dropdown types)
+and <b>Select Country :</b> finishes with the colon symbol, like no other element on the page 
 4. Photo field jumps on the page different parts depending on browser window size change
-and when it's in list with others, still is after submit button which is not good
+and when it's in list with others, still is under submit button which is not good
 5. Female option of gender is written as FeMale
 6. Date Of Birth, Password, ConfirmPassword is not marked with asterisks, but are mandatory(in tests I put it, to make 
 registration successful, but can be easily changed)
