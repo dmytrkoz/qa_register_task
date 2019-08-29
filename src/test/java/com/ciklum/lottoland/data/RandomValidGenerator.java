@@ -81,12 +81,12 @@ public class RandomValidGenerator extends AbstractDataGenerator {
             logger.warn("Password that was generated: {}, doesn't match needed pattern will regenerate",password);
         }
         setPassword(password);
-        return password;
+        return password; // password is mandatory thought it's not marked with asterisks
     }
 
     @Override
     public String generatePasswordConfirmation() {
-        return getPassword();
+        return getPassword(); //  confirm password is mandatory thought it's not marked with asterisks
     }
 
 }

@@ -72,6 +72,8 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+        <!--Useful lib to generate real random data -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
