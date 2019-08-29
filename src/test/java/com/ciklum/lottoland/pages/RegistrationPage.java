@@ -4,6 +4,8 @@ package com.ciklum.lottoland.pages;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.util.EnvironmentVariables;
+import net.thucydides.core.util.SystemEnvironmentVariables;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -13,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * Page contains all needed elements for user registration
+ * Page contains all needed elements for user registration page interactions
  */
 @DefaultUrl("http://demo.automationtesting.in/Register.html")
 public class RegistrationPage extends BasicPage {
@@ -49,7 +51,7 @@ public class RegistrationPage extends BasicPage {
     private WebElementFacade countries;
 
     @FindBy(xpath = "//*[@id='country']//parent::div")
-    private WebElementFacade country;
+    private WebElementFacade countryParent;
 
     @FindBy(id = "yearbox")
     private WebElementFacade year;
@@ -115,10 +117,9 @@ public class RegistrationPage extends BasicPage {
     }
 
     /**
-     * Based on array filled with 1 and 0 select the checkbox items
+     * Based on provided list will select hobbies
      *
-     * @param hobbiesInputs int[], int[i] = 1 - select checkbox,
-     *                      int[i] = 0 - don't select checkbox
+     * @param hobbiesInputs
      */
     public void selectHobbies(List<?> hobbiesInputs){
         hobbies.stream().filter(hobby ->
@@ -134,12 +135,16 @@ public class RegistrationPage extends BasicPage {
         return getHiddenDropdownElements(languagesContainer,By.cssSelector("a.ui-corner-all"));
     }
 
+    /**
+     * Create the List of all getText() values for languages
+     * @return
+     */
     public List<String> getAllLanguages() {
         return getAllLanguagesElements().stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     /**
-     * Based on available options select the languages,
+     * Based on available options select the languages
      *
      * @param languagesInput - which languages to select
      */
@@ -158,7 +163,7 @@ public class RegistrationPage extends BasicPage {
     }
 
     public List<String> getAllCountries(){
-        return getAllDropdownValues(country);
+        return getAllDropdownValues(countries);
     }
 
     public void selectCountries(String  countryValue) {
@@ -166,11 +171,17 @@ public class RegistrationPage extends BasicPage {
     }
 
     public List<String> getAllCountryValues(){
-        return getHiddenDropdownElements(country,By.cssSelector("li.select2-results__option"))
+        return getHiddenDropdownElements(countryParent,By.cssSelector("li.select2-results__option"))
                 .stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
+    /**
+     * Select the country based on country value provided
+     *
+     * @param countryValue
+     */
     public void selectCountry(String countryValue) {
+        getDriver().findElement(By.cssSelector("input.select2-search__field")).sendKeys(countryValue);
         List<WebElement> countries = getDriver().findElements(By.cssSelector("li.select2" + "-results__option"));
         jsScrollAndClick(countries.stream().filter(country -> country.getText().equals(countryValue)).findFirst().get());
     }
@@ -208,8 +219,14 @@ public class RegistrationPage extends BasicPage {
         confirmPassword.type(newPasswordConfirmation);
     }
 
+    /**
+     * If filename doesn't equal to noFile value from serenity.conf, upload the file as photo
+     * @param filename
+     */
     public void uploadPhoto(String filename) {
-        if (!filename.equals("without file")) {
+        final EnvironmentVariables variables = SystemEnvironmentVariables.createEnvironmentVariables();
+
+        if (!filename.equals(variables.getProperty("test.photos.noFile"))) {
             getJavascriptExecutorFacade().executeScript("arguments[0].scrollIntoView();", photo);
             File photoFile = new File(filename);
             photo.sendKeys(photoFile.getAbsolutePath());

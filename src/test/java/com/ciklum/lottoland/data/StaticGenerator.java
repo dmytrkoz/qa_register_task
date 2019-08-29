@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
+/**
+ * Used to be able to test with particular values
+ */
 public class StaticGenerator extends AbstractDataGenerator {
 
     @Override
@@ -69,7 +73,7 @@ public class StaticGenerator extends AbstractDataGenerator {
 
     @Override
     public String generateCountry(List<?> values) {
-        return "Australia";
+        return "United States of America";
     }
 
     @Override

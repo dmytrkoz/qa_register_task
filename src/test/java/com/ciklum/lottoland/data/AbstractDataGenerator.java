@@ -2,13 +2,16 @@ package com.ciklum.lottoland.data;
 
 import com.ciklum.lottoland.steps.serenity.VerificationSteps;
 import com.github.javafaker.Faker;
+import net.thucydides.core.util.EnvironmentVariables;
+import net.thucydides.core.util.SystemEnvironmentVariables;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.io.IOException;
+import java.util.*;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -19,6 +22,9 @@ import java.util.stream.Collectors;
 public abstract class AbstractDataGenerator implements DataGenerator {
 
     protected final Logger logger = LoggerFactory.getLogger(VerificationSteps.class);
+
+    private EnvironmentVariables variables = SystemEnvironmentVariables.createEnvironmentVariables();
+
 
     //immutable list of available users
     protected static final List<String> usersList = Collections.unmodifiableList(Arrays.asList("Jan van Dam", "Chack Norris", "Klark n Kent",
@@ -49,19 +55,56 @@ public abstract class AbstractDataGenerator implements DataGenerator {
         return user;
     }
 
+    /**
+     *Scans the folder with photos if there are some - returns random one, if the folder doesn't
+     * exist
+     * Folder path is set up in serenity.conf file
+     *
+     * @return
+     */
     @Override
     public String generatePhoto(){
         List<String> results = new ArrayList<>();
-        File[] files = new File("src/test/resources/photos/").listFiles();
-//If this pathname does not denote a directory, then listFiles() returns null.
+        final String photosFolder = variables.getProperty("test.photos.folder");
+        final String noFile = variables.getProperty("test.photos.noFile");
+        Optional<File[]> files = Optional.ofNullable(new File(photosFolder).listFiles());
 
-        for (File file : files) {
-            if (file.isFile()) {
-                results.add(file.getAbsolutePath());
+        if(!files.isPresent() || !(files.get().length>0)){
+            logger.error("There are no photo files in folder or folder doesn't exist");
+            return noFile;
+        } else {
+            for (File file : files.get()) {
+                if (file.isFile() && isImage(file)) {
+                    results.add(file.getAbsolutePath());
+                }
             }
+            if (results.isEmpty()){
+                return noFile;
+            }
+            //random noFile because it's optional value
+            return new Random().nextBoolean() ? results.get(getRandomInt(results.size())) : noFile;
         }
+    }
 
-        return (oneOrZero()==0) ? results.get(getRandomInt(results.size())) : "without file";
+
+    /**
+     * Check if the file is an image
+     * @param file
+     * @return
+     */
+    private boolean isImage(File file){
+        boolean validImage= true;
+        try {
+            Image image = ImageIO.read(file);
+            if (image == null) {
+                validImage = false;
+                logger.error("The file {} could not be used, it is not an image",file);
+            }
+        } catch(IOException ex) {
+            validImage = false;
+            logger.error("Error occurred during the file {} check",file);
+        }
+        return validImage;
     }
 
     /**
@@ -106,27 +149,6 @@ public abstract class AbstractDataGenerator implements DataGenerator {
     }
 
     /**
-     * Randomly returns 1 or 0
-     * @return 0 or 1
-     */
-    protected int oneOrZero(){
-        return getRandomInt(2);
-    }
-
-    /**
-     * Fills array randomly with 0 or 1 elements
-     *
-     * @param array that you need to fill with values
-     * @return filled array
-     */
-    protected int[] fillArrayWithOneOrZero(int[] array){
-        for (int i =0; i< array.length; i++){
-            array[i] = oneOrZero();
-        }
-        return array;
-    }
-
-    /**
      * @param max exclusive
      * @return a random number from 0 to max
      */
@@ -151,7 +173,7 @@ public abstract class AbstractDataGenerator implements DataGenerator {
     protected List<?> selectRandomElementsFromList(List<?> list, int startFrom){
         List<?> randomList = new ArrayList<>(list.subList(1, list.size()));
         Collections.shuffle(randomList); // cannot do directly Collections.shuffle(List)
-        return randomList.subList(0, getRandomInt(randomList.size()+1));
+        return randomList.subList(startFrom, getRandomInt(randomList.size()+1));
     }
 
     protected <E> E selectRandomElementFromList(List<E> values, int startFrom){

@@ -2,6 +2,7 @@ build
 .gradle
 .idea
 lib
+webdriver
 target
 *.iml
 *.log

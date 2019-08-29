@@ -13,28 +13,39 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>2.0.52</serenity.version>
         <serenity.jbehave.version>1.46.0</serenity.jbehave.version>
-<!--        <webdriver.driver>chrome</webdriver.driver>-->
+        <logback.version>1.2.3</logback.version>
+        <chromedriver.version>76.0.3809.126</chromedriver.version>
     </properties>
 
     <repositories>
-      <repository>
-        <snapshots>
-        <enabled>false</enabled>
-        </snapshots>
-        <id>central</id>
-        <name>bintray</name>
-        <url>http://jcenter.bintray.com</url>
-      </repository>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>bintray</name>
+            <url>http://jcenter.bintray.com</url>
+        </repository>
     </repositories>
     <pluginRepositories>
-      <pluginRepository>
-        <snapshots>
-        <enabled>false</enabled>
-        </snapshots>
-        <id>central</id>
-        <name>bintray-plugins</name>
-        <url>http://jcenter.bintray.com</url>
-      </pluginRepository>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>bintray-plugins</name>
+            <url>http://jcenter.bintray.com</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>sonatype-public-repository</id>
+            <url>https://oss.sonatype.org/content/groups/public</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
     </pluginRepositories>
 
     <dependencies>
@@ -51,9 +62,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.7</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -88,9 +99,9 @@
                         <include>**/When*.java</include>
                     </includes>
                     <argLine>-Xmx512m</argLine>
-<!--                    <systemPropertyVariables>-->
-<!--                        <webdriver.driver>${webdriver.driver}</webdriver.driver>-->
-<!--                    </systemPropertyVariables>-->
+                    <!--                    <systemPropertyVariables>-->
+                    <!--                        <webdriver.driver>${webdriver.driver}</webdriver.driver>-->
+                    <!--                    </systemPropertyVariables>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -124,6 +135,62 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!--Plugin to download driver before tests run -->
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.4.2</version>
+                <executions>
+                    <!-- download chrome driver -->
+                    <execution>
+                        <id>install-chrome-driver-linux64</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>
+                                http://chromedriver.storage.googleapis.com/${chromedriver.version}/chromedriver_linux64.zip
+                            </url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${basedir}/src/test/resources/webdriver/linux/</outputDirectory>
+                            <md5>2f2d9ab416c86c94cbbfcf1b8833280d</md5>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-chrome-driver-windows</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>
+                                http://chromedriver.storage.googleapis.com/${chromedriver.version}/chromedriver_win32.zip
+                            </url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${basedir}/src/test/resources/webdriver/windows/</outputDirectory>
+                            <md5>823b374b2cd5f5224b825417f5f6f406</md5>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-chrome-driver-osx</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>
+                                http://chromedriver.storage.googleapis.com/${chromedriver.version}/chromedriver_mac64.zip
+                            </url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${basedir}/src/test/resources/webdriver/mac/</outputDirectory>
+                            <md5>f42f47d08bc285c791b87b26e0fdc47a</md5>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>

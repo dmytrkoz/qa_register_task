@@ -47,7 +47,15 @@ public class VerificationSteps {
      * @return Text of the error if it's present, if not returns Optional.empty()
      */
     private Optional<String> getVisibleErrors() {
-        return registrationPage.isOnPage() ? registrationPage.getRegistrationError() : Optional.empty();
+        try {
+            return registrationPage.isOnPage() ? registrationPage.getRegistrationError() : Optional.empty();
+        } catch (Exception e){ // Catch Exception if webdriver tried to get errors before redirect
+            if (registrationPage.getDriver().getCurrentUrl().equals(registrationPage.getDefualtUrlValue().orElse(""))) {
+                throw e; // if exception happened on register page throw it if not ignore
+            }
+            logger.error("webdriver tried to get Errors before redirect");
+            return Optional.empty();
+        }
     }
 
     /**
