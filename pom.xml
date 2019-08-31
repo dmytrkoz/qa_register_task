@@ -11,8 +11,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>2.0.52</serenity.version>
-        <serenity.jbehave.version>1.46.0</serenity.jbehave.version>
+        <serenity.version>2.0.66</serenity.version>
+        <serenity.cucumber.version>1.9.45</serenity.cucumber.version>
         <logback.version>1.2.3</logback.version>
         <chromedriver.version>76.0.3809.126</chromedriver.version>
     </properties>
@@ -57,8 +57,8 @@
         </dependency>
         <dependency>
             <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-jbehave</artifactId>
-            <version>${serenity.jbehave.version}</version>
+            <artifactId>serenity-cucumber</artifactId>
+            <version>${serenity.cucumber.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>

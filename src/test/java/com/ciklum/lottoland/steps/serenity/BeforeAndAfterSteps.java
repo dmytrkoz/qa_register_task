@@ -2,8 +2,8 @@ package com.ciklum.lottoland.steps.serenity;
 
 
 import com.ciklum.lottoland.data.AbstractDataGenerator;
-import org.jbehave.core.annotations.AfterStories;
-import org.jbehave.core.annotations.BeforeStories;
+import cucumber.api.java.After;
+import cucumber.api.java.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,8 +15,8 @@ public class BeforeAndAfterSteps {
 
     private final Logger logger = LoggerFactory.getLogger(BeforeAndAfterSteps.class);
 
-    @BeforeStories
-    @AfterStories
+    @Before
+    @After
     public void logAvailableUsers() {
         logUsers();
     }
