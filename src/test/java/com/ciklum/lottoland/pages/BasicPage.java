@@ -12,9 +12,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/**
- * Page with common functionality
- */
 public class BasicPage extends PageObject {
 
     /**
