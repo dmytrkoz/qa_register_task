@@ -23,10 +23,6 @@ public class BasicPage extends PageObject {
         return isOnPage();
     }
 
-    /**
-     * If page ahs a DefaultUrl annotation, will return the value using reflection
-     * @return
-     */
     public Optional<String> getDefualtUrlValue() {
         return Optional.of(this.getClass().getAnnotation(DefaultUrl.class).value());
     }
@@ -35,10 +31,6 @@ public class BasicPage extends PageObject {
         return Optional.of(getDriver().getTitle());
     }
 
-    /**
-     * Checks if current url equals expected page url
-     * @return
-     */
     public boolean isOnPage() {
         Optional<String> pageDefaultUrl = getDefualtUrlValue();
         return getDriver().getCurrentUrl().equals(pageDefaultUrl.orElse(
